@@ -114,7 +114,7 @@ const ModernTemplate = ({ data, showProfileImage = true }) => {
       <main className="resume-main flex flex-col md:flex-row print:flex-row gap-5 p-5 md:p-8 print:p-5 print:pt-4 print:gap-5">
         
         {/* LEFT COLUMN (Sidebar) */}
-        <aside className="resume-sidebar w-full md:w-[28%] print:w-[28%] space-y-4 print:space-y-3 order-2 md:order-1 print:order-1">
+        <aside className="resume-sidebar w-full md:w-[24%] print:w-[24%] space-y-4 print:space-y-3 order-2 md:order-1 print:order-1">
           
           {/* EDUCATION */}
           <section>
@@ -146,9 +146,9 @@ const ModernTemplate = ({ data, showProfileImage = true }) => {
             
             {/* Languages/Technical */}
             <div className="mb-5 print:mb-3">
-              <h5 className="text-[10px] print:text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+              <h5 className="text-[10px] print:text-[10px] font-bold text-slate-500 tracking-wider mb-1.5 flex items-center gap-1.5">
                 <Code2 size={11} className="text-slate-400" />
-                Languages & Frameworks
+                Web Frameworks
               </h5>
               <div className="flex flex-wrap gap-1.5 print:gap-1.5">
                 {skills.technical.map((skill) => (
@@ -165,7 +165,7 @@ const ModernTemplate = ({ data, showProfileImage = true }) => {
             {/* Testing */}
             {skills.testing && skills.testing.length > 0 && (
               <div className="mb-5 print:mb-3">
-                <h5 className="text-[10px] print:text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+                <h5 className="text-[10px] print:text-[10px] font-bold text-slate-500 tracking-wider mb-1.5 flex items-center gap-1.5">
                   <TestTube2 size={11} className="text-slate-400" />
                   Testing & Quality
                 </h5>
@@ -184,7 +184,7 @@ const ModernTemplate = ({ data, showProfileImage = true }) => {
 
             {/* Tools */}
             <div className="mb-5 print:mb-3">
-              <h5 className="text-[10px] print:text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+              <h5 className="text-[10px] print:text-[10px] font-bold text-slate-500 tracking-wider mb-1.5 flex items-center gap-1.5">
                 <Wrench size={11} className="text-slate-400" />
                 Tools & Cloud
               </h5>
@@ -235,14 +235,15 @@ const ModernTemplate = ({ data, showProfileImage = true }) => {
         </aside>
 
         {/* RIGHT COLUMN (Main Content) */}
-        <section className="resume-content w-full md:w-[72%] print:w-[72%] space-y-4 print:space-y-3 order-1 md:order-2 print:order-2">
+        <section className="resume-content w-full md:w-[76%] print:w-[76%] space-y-4 print:space-y-3 order-1 md:order-2 print:order-2">
           
           {/* PROFILE / SUMMARY */}
           <section>
             <SectionTitle icon={User} title="Profile" />
-            <p className="text-xs print:text-sm text-slate-600 leading-relaxed print:leading-relaxed">
-              {header.summary}
-            </p>
+            <p 
+              className="text-xs print:text-sm text-slate-600 leading-relaxed print:leading-relaxed"
+              dangerouslySetInnerHTML={{ __html: header.summary }}
+            />
           </section>
 
           {/* WORK EXPERIENCE */}
@@ -259,8 +260,8 @@ const ModernTemplate = ({ data, showProfileImage = true }) => {
                     </span>
                   </div>
                   <div className="text-sm print:text-sm text-slate-900 flex items-center gap-3 mt-0.5">
-                    <span className="flex items-center gap-1 font-bold">
-                      <Building2 size={14} className="text-slate-500" />
+                    <span className="text-lg print:text-lg flex items-center gap-1 font-bold">
+                      <Building2 size={16} className="text-slate-500" />
                       {job.company}
                     </span>
                     <span className="flex items-center gap-1 text-slate-500 text-xs">
@@ -278,7 +279,7 @@ const ModernTemplate = ({ data, showProfileImage = true }) => {
                     {job.achievements.map((achievement, idx) => (
                       <li key={idx} className="text-xs print:text-xs text-slate-600 leading-relaxed print:leading-snug flex gap-2">
                         <span className="text-amber-500 mt-0.5">▸</span>
-                        <span>{achievement}</span>
+                        <span dangerouslySetInnerHTML={{ __html: achievement }} />
                       </li>
                     ))}
                   </ul>
@@ -298,7 +299,10 @@ const ModernTemplate = ({ data, showProfileImage = true }) => {
                       <Award size={12} className="text-amber-500" />
                       {project.name}
                     </h4>
-                    <p className="text-xs print:text-xs text-slate-600 mt-1">{project.description}</p>
+                    <p 
+                      className="text-xs print:text-xs text-slate-600 mt-1"
+                      dangerouslySetInnerHTML={{ __html: project.description }}
+                    />
                     {project.link && (
                       <p className="text-xs print:text-xs text-slate-500 mt-1.5 flex items-center gap-1">
                         <ExternalLink size={10} className="text-blue-500" />

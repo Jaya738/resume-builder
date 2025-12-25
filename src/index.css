@@ -14,6 +14,12 @@
     font-size: 11pt;
     line-height: 1.5;
   }
+  
+  /* Style for bold tags in resume content */
+  .resume-container b {
+    font-weight: 700;
+    color: #1e293b;
+  }
 }
 
 /* Resume styles - Applied to both screen and print */
@@ -66,7 +72,7 @@
 /* Print-specific styles for PDF generation */
 @media print {
   @page {
-    margin: 0.3in 0.4in;
+    margin: 0.15in 0.2in;
     size: letter;
   }
   
@@ -100,14 +106,14 @@
   }
   
   .resume-sidebar {
-    width: 28% !important;
-    min-width: 28% !important;
+    width: 24% !important;
+    min-width: 24% !important;
     flex-shrink: 0 !important;
     order: 1 !important;
   }
   
   .resume-content {
-    width: 72% !important;
+    width: 76% !important;
     flex-grow: 1 !important;
     order: 2 !important;
   }

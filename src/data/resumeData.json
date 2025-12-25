@@ -3,7 +3,7 @@
     "name": "Jaya Simha Reddy Nandyala",
     "title": "Senior Full Stack Engineer",
     "profileImage": "",
-    "summary": "Senior Full Stack Engineer with 6.5+ years of experience building scalable web applications and cloud-native solutions. Expertise in React, Next.js, Java Springboot, Python FastAPI, and cloud platforms (AWS, Azure). Currently driving AI-First Software Delivery at Thoughtworks. Strong advocate of Test Driven Development and Extreme Programming methodologies. Proven track record of translating complex business requirements into high-quality, production-ready features. Quick learner who thrives in fast-paced, agile environments.",
+    "summary": "Senior Full Stack Engineer with <b>6.5+ years</b> of experience building scalable web applications and cloud-native solutions. Expertise in React, Next.js, Java Springboot, Python FastAPI, and cloud platforms (AWS, Azure). Strong advocate of <b>Test Driven Development (TDD)</b> and <b>Extreme Programming (XP)</b> methodologies. Proven track record of translating complex business requirements into high-quality, production-ready features.",
     "contact": {
       "email": "jayasimhareddy738@gmail.com",
       "phone": "+91 8466061231",
@@ -22,13 +22,12 @@
       "company": "Thoughtworks",
       "location": "Hyderabad, India",
       "period": "May 2024 - Present",
-      "techStack": "Next.js, React, TypeScript, AWS, DynamoDB, FastAPI, Python, Playwright",
+      "techStack": "Next.js, React (TypeScript), Python (FastAPI), AWS, DynamoDB",
       "achievements": [
-        "Pioneering AI-First Software Delivery practices, integrating AI tools and workflows to accelerate development cycles and enhance code quality.",
-        "Architecting modern web applications using Next.js and React with TypeScript for enterprise clients in the retail domain.",
-        "Building serverless backend services with FastAPI and AWS Lambda, leveraging DynamoDB for high-performance data persistence.",
-        "Establishing comprehensive end-to-end testing strategies using Playwright, ensuring robust test coverage across critical user journeys.",
-        "Collaborating with cross-functional teams following Agile and XP practices to deliver high-quality solutions iteratively."
+        "Pioneering <b>AI-First Software Delivery</b> practices, integrating AI tools to accelerate development cycles.",
+        "Architecting modern web applications using <b>Next.js</b> and React with TypeScript for enterprise retail clients following <b>Agile and XP practices</b>.",
+        "Building <b>serverless</b> backend services with FastAPI and AWS Lambda, leveraging DynamoDB for high-performance data persistence.",
+        "Establishing comprehensive E2E testing strategies using <b>Playwright</b> for robust test coverage."
       ]
     },
     {
@@ -37,12 +36,12 @@
       "company": "Northern Trust",
       "location": "Pune, India",
       "period": "June 2021 - May 2024",
-      "techStack": "ReactJS, Java Springboot, Azure Cloud, TypeScript, Python",
+      "techStack": "ReactJS (TypeScript), Java (Springboot), Python (Serverless), Azure",
       "achievements": [
-        "Delivered end-to-end features for a Wealth Management Application, strictly following TDD and XP methodologies to ensure code quality and maintainability.",
-        "Partnered with Business, Product, and Design teams to understand domain complexities, gather requirements, and incorporate feedback through iterative development.",
-        "Engineered Azure serverless functions in TypeScript and Python, optimizing performance for complex financial calculations.",
-        "Mentored a team of 5 interns, guiding them in building data analytics dashboards using Azure App Insights, KQL, and Grafana."
+        "Delivered end-to-end features for <b>Wealth Management Application</b> following <b>TDD and XP</b> methodologies.",
+        "Partnered with Business, Product, and Design teams to gather requirements and incorporate feedback iteratively.",
+        "Engineered <b>Azure serverless functions</b> in TypeScript and Python, optimizing performance for complex financial calculations.",
+        "Mentored a team of 5 interns in building data analytics dashboards using Azure App Insights, KQL, and Grafana."
       ]
     },
     {
@@ -51,11 +50,11 @@
       "company": "Tata Consultancy Services",
       "location": "Hyderabad, India",
       "period": "Sept 2019 - June 2021",
-      "techStack": "React JS, Redux, Redux Saga, SignalR Client",
+      "techStack": "React JS, Redux, SignalR Client",
       "achievements": [
-        "Transformed feature specifications into fully functional, responsive UI components using React JS and Redux state management.",
-        "Implemented real-time data synchronization using SignalR, enabling push-based architecture for live updates.",
-        "Ensured application quality through comprehensive Unit, Security, and Accessibility testing (ADA compliance)."
+        "Transformed feature specifications into fully functional, responsive UI components using React JS and Redux.",
+        "Implemented <b>real-time</b> data synchronization using SignalR, enabling push-based architecture for live updates.",
+        "Ensured application quality through comprehensive <b>Unit, Security, and Accessibility testing</b> (ADA compliance)."
       ]
     }
   ],
@@ -102,7 +101,7 @@
       "JUnit",
       "pytest",
       "Playwright",
-      "TDD (Test Driven Development)"
+      "Test Driven Development"
     ],
     "soft": []
   },
