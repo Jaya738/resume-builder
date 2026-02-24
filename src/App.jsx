@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Download, User, UserX, Palette } from 'lucide-react';
-import ModernTemplate from './components/ModernTemplate';
+import { Download, User, UserX, Palette, ArrowLeft, LayoutGrid } from 'lucide-react';
+import { templateRegistry } from './templates';
+import TemplatePicker from './components/TemplatePicker';
 import jayaData from './data/jaya.json';
 import navyaData from './data/navya.json';
 import venkatData from './data/venkat.json';
@@ -17,52 +18,99 @@ const THEME_PRESETS = [
 ];
 
 const App = () => {
-  const [template, setTemplate] = useState('modern');
-  const [profiles, setProfiles] = useState([jayaData, navyaData, venkatData]);
+  const [view, setView] = useState('picker'); // 'picker' | 'resume'
+  const [selectedTemplateId, setSelectedTemplateId] = useState(templateRegistry[0].id);
+  const [profiles] = useState([jayaData, navyaData, venkatData]);
   const [activeProfile, setActiveProfile] = useState(navyaData);
+
   const hasProfileImage = useMemo(
     () => Boolean(activeProfile?.header?.profileImage?.trim()),
     [activeProfile]
   );
   const [showProfileImage, setShowProfileImage] = useState(hasProfileImage);
-  const [themeColor, setThemeColor] = useState('#f59e0b');
+
+  const selectedTemplate = templateRegistry.find((t) => t.id === selectedTemplateId) || templateRegistry[0];
+  const [themeColor, setThemeColor] = useState(selectedTemplate.defaultColor);
   const [showColorPicker, setShowColorPicker] = useState(false);
 
   useEffect(() => {
     setShowProfileImage(hasProfileImage);
   }, [hasProfileImage]);
 
+  const handleTemplateSelect = (id) => {
+    setSelectedTemplateId(id);
+    const tmpl = templateRegistry.find((t) => t.id === id);
+    if (tmpl) setThemeColor(tmpl.defaultColor);
+  };
+
+  const handleContinue = () => {
+    setView('resume');
+  };
+
+  const handleBackToPicker = () => {
+    setView('picker');
+  };
+
   const handlePrint = () => {
     window.print();
   };
 
-  const toggleProfileImage = () => {
-    setShowProfileImage(!showProfileImage);
-  };
-
   const cycleProfile = () => {
-    const currentIndex = profiles.findIndex((profile) => profile.header.name === activeProfile.header.name);
+    const currentIndex = profiles.findIndex((p) => p.header.name === activeProfile.header.name);
     const nextIndex = (currentIndex + 1) % profiles.length;
     setActiveProfile(profiles[nextIndex]);
   };
 
+  const TemplateComponent = selectedTemplate.component;
+
+  if (view === 'picker') {
+    return (
+      <TemplatePicker
+        templates={templateRegistry}
+        selectedId={selectedTemplateId}
+        onSelect={handleTemplateSelect}
+        onContinue={handleContinue}
+      />
+    );
+  }
+
   return (
     <div className="min-h-screen bg-slate-100 font-sans print:bg-white print:min-h-0">
-      
-      {/* Tool Bar - Hidden when printing */}
+      {/* Tool Bar */}
       <div className="print:hidden fixed top-0 left-0 right-0 h-16 bg-white border-b border-slate-200 shadow-sm z-50 flex items-center justify-between px-4 md:px-8">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-slate-800 rounded-lg flex items-center justify-center text-white font-bold">
-            R
+        <div className="flex items-center gap-3">
+          <button
+            onClick={handleBackToPicker}
+            className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-800 transition-colors cursor-pointer"
+            title="Back to templates"
+          >
+            <ArrowLeft size={16} />
+            <span className="hidden sm:inline">Templates</span>
+          </button>
+          <div className="w-px h-6 bg-slate-200 hidden sm:block" />
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 bg-slate-800 rounded-lg flex items-center justify-center text-white font-bold">
+              R
+            </div>
+            <span className="font-semibold text-slate-700 hidden sm:inline">ResumeBuilder</span>
           </div>
-          <span className="font-semibold text-slate-700 hidden sm:inline">ResumeBuilder</span>
         </div>
 
         <div className="flex items-center gap-3">
+          {/* Template indicator */}
+          <button
+            onClick={handleBackToPicker}
+            className="hidden md:flex items-center gap-1.5 text-xs text-slate-400 bg-slate-50 px-2.5 py-1.5 rounded-full border border-slate-200 hover:bg-slate-100 cursor-pointer"
+            title="Change template"
+          >
+            <LayoutGrid size={12} />
+            <span className="font-medium text-slate-600">{selectedTemplate.name}</span>
+          </button>
+
           {/* Profile Selector */}
           <button
             onClick={cycleProfile}
-            className="hidden md:flex items-center gap-2 text-sm text-slate-500 bg-slate-50 px-3 py-1.5 rounded-full border border-slate-200 hover:bg-slate-100"
+            className="hidden md:flex items-center gap-2 text-sm text-slate-500 bg-slate-50 px-3 py-1.5 rounded-full border border-slate-200 hover:bg-slate-100 cursor-pointer"
             title="Switch profile"
           >
             <span>Profile:</span>
@@ -120,13 +168,13 @@ const App = () => {
 
           {/* Profile Image Toggle */}
           <button
-            onClick={toggleProfileImage}
+            onClick={() => setShowProfileImage(!showProfileImage)}
             disabled={!hasProfileImage}
             className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer border ${
               !hasProfileImage
                 ? 'bg-slate-50 text-slate-300 border-slate-100 cursor-not-allowed'
                 : showProfileImage
-                ? 'bg-slate-100 text-slate-700 border-slate-200 hover:bg-slate-200' 
+                ? 'bg-slate-100 text-slate-700 border-slate-200 hover:bg-slate-200'
                 : 'bg-slate-50 text-slate-400 border-slate-100 hover:bg-slate-100'
             }`}
             title={
@@ -142,7 +190,7 @@ const App = () => {
           </button>
 
           {/* Download Button */}
-          <button 
+          <button
             onClick={handlePrint}
             className="flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all shadow-md hover:shadow-lg active:scale-95 cursor-pointer"
           >
@@ -152,21 +200,19 @@ const App = () => {
         </div>
       </div>
 
-      {/* Close color picker when clicking outside */}
+      {/* Close color picker overlay */}
       {showColorPicker && (
         <div className="fixed inset-0 z-40 print:hidden" onClick={() => setShowColorPicker(false)} />
       )}
 
-      {/* Main Content Area */}
+      {/* Resume Content */}
       <div className="pt-24 pb-12 px-4 print:p-0 print:m-0">
         <div className="print:w-full">
-          {template === 'modern' && (
-            <ModernTemplate 
-              data={activeProfile} 
-              showProfileImage={showProfileImage}
-              themeColor={themeColor}
-            />
-          )}
+          <TemplateComponent
+            data={activeProfile}
+            showProfileImage={showProfileImage}
+            themeColor={themeColor}
+          />
         </div>
       </div>
     </div>
