@@ -30,13 +30,16 @@ const profileImageByName = Object.fromEntries(
   Object.entries(assetModules).map(([path, url]) => [path.split('/').pop(), url])
 );
 
-const ModernTemplate = ({ data, showProfileImage = true }) => {
+const ModernTemplate = ({ data, showProfileImage = true, themeColor = '#f59e0b' }) => {
   const { header, experience, education, skills, projects } = data;
   const profileImageName = header?.profileImage?.trim() || '';
   const profileImageSrc = profileImageByName[profileImageName] || '';
 
   return (
-    <div className="resume-container w-full max-w-[210mm] mx-auto bg-white shadow-xl print:shadow-none print:max-w-none text-slate-800">
+    <div
+      className="resume-container w-full max-w-[210mm] mx-auto bg-white shadow-xl print:shadow-none print:max-w-none text-slate-800"
+      style={{ '--theme-color': themeColor }}
+    >
       
       {/* HEADER - New Design with Profile Image */}
       <header className="px-5 pt-5 pb-3 md:px-8 md:pt-6 md:pb-4 print:px-5 print:pt-5 print:pb-3">
@@ -61,7 +64,7 @@ const ModernTemplate = ({ data, showProfileImage = true }) => {
             <h1 className="text-2xl md:text-3xl print:text-2xl font-bold text-slate-900 tracking-wide uppercase mb-0.5">
               {header.name}
             </h1>
-            <h2 className="text-sm md:text-base print:text-sm text-amber-600 font-medium tracking-wide mb-2 print:mb-2">
+            <h2 className="text-sm md:text-base print:text-sm font-medium tracking-wide mb-2 print:mb-2" style={{ color: themeColor }}>
               {header.title}
             </h2>
             
@@ -261,8 +264,8 @@ const ModernTemplate = ({ data, showProfileImage = true }) => {
                 <article key={job.id} className="job-entry">
                   <div className="flex flex-row justify-between items-baseline mb-0.5">
                     <h4 className="text-sm print:text-sm font-semibold text-slate-700">{job.role}</h4>
-                    <span className="text-xs print:text-xs font-semibold text-amber-600 whitespace-nowrap ml-2 flex items-center gap-1">
-                      <Calendar size={10} className="text-amber-500" />
+                    <span className="text-xs print:text-xs font-semibold whitespace-nowrap ml-2 flex items-center gap-1" style={{ color: themeColor }}>
+                      <Calendar size={10} style={{ color: themeColor }} />
                       {job.period}
                     </span>
                   </div>
@@ -285,7 +288,7 @@ const ModernTemplate = ({ data, showProfileImage = true }) => {
                   <ul className="list-none ml-0 mt-2 space-y-1 print:space-y-0.5">
                     {job.achievements.map((achievement, idx) => (
                       <li key={idx} className="text-xs print:text-xs text-slate-600 leading-relaxed print:leading-snug flex gap-2">
-                        <span className="text-amber-500 mt-0.5">▸</span>
+                        <span className="mt-0.5" style={{ color: themeColor }}>▸</span>
                         <span dangerouslySetInnerHTML={{ __html: achievement }} />
                       </li>
                     ))}
@@ -303,7 +306,7 @@ const ModernTemplate = ({ data, showProfileImage = true }) => {
                 {projects.map((project) => (
                   <article key={project.id} className="bg-slate-50 p-3 rounded-lg print:bg-transparent print:p-0 print:border-l-2 print:border-slate-300 print:pl-3">
                     <h4 className="font-bold text-slate-900 text-xs print:text-sm uppercase flex items-center gap-1.5">
-                      <Award size={12} className="text-amber-500" />
+                      <Award size={12} style={{ color: themeColor }} />
                       {project.name}
                     </h4>
                     <p 

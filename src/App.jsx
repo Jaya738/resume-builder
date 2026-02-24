@@ -1,35 +1,41 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Download, User, UserX } from 'lucide-react';
+import { Download, User, UserX, Palette } from 'lucide-react';
 import ModernTemplate from './components/ModernTemplate';
 import jayaData from './data/jaya.json';
 import navyaData from './data/navya.json';
 import venkatData from './data/venkat.json';
 
-// Import all profiles in /data folder
+const THEME_PRESETS = [
+  { name: 'Amber',   color: '#f59e0b' },
+  { name: 'Blue',    color: '#3b82f6' },
+  { name: 'Emerald', color: '#10b981' },
+  { name: 'Rose',    color: '#f43f5e' },
+  { name: 'Violet',  color: '#8b5cf6' },
+  { name: 'Slate',   color: '#475569' },
+  { name: 'Orange',  color: '#f97316' },
+  { name: 'Teal',    color: '#14b8a6' },
+];
 
 const App = () => {
   const [template, setTemplate] = useState('modern');
-  // Maintain list of profiles in state
   const [profiles, setProfiles] = useState([jayaData, navyaData, venkatData]);
-  // Maintain active profile in state
   const [activeProfile, setActiveProfile] = useState(navyaData);
   const hasProfileImage = useMemo(
     () => Boolean(activeProfile?.header?.profileImage?.trim()),
     [activeProfile]
   );
   const [showProfileImage, setShowProfileImage] = useState(hasProfileImage);
+  const [themeColor, setThemeColor] = useState('#f59e0b');
+  const [showColorPicker, setShowColorPicker] = useState(false);
 
   useEffect(() => {
-    // Auto-hide image when selected profile has no image configured in JSON.
     setShowProfileImage(hasProfileImage);
   }, [hasProfileImage]);
 
-  // Handle Printing / PDF Download
   const handlePrint = () => {
     window.print();
   };
 
-  // Toggle profile image visibility
   const toggleProfileImage = () => {
     setShowProfileImage(!showProfileImage);
   };
@@ -62,17 +68,54 @@ const App = () => {
             <span>Profile:</span>
             <span className="font-medium text-slate-800">{activeProfile.header.name}</span>
           </button>
-          {/* Template Selector */}
-          <div className="hidden md:flex items-center gap-2 text-sm text-slate-500 bg-slate-50 px-3 py-1.5 rounded-full border border-slate-200">
-            <span>Template:</span>
-            <select 
-              value={template} 
-              onChange={(e) => setTemplate(e.target.value)}
-              className="bg-transparent border-none font-medium text-slate-800 focus:ring-0 cursor-pointer"
+
+          {/* Theme Color Picker */}
+          <div className="relative">
+            <button
+              onClick={() => setShowColorPicker(!showColorPicker)}
+              className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium bg-slate-50 text-slate-600 border border-slate-200 hover:bg-slate-100 cursor-pointer"
+              title="Choose theme color"
             >
-              <option value="modern">Modern Professional</option>
-              {/* Future templates can be added here */}
-            </select>
+              <div
+                className="w-4 h-4 rounded-full border border-slate-300"
+                style={{ backgroundColor: themeColor }}
+              />
+              <Palette size={14} />
+            </button>
+
+            {showColorPicker && (
+              <div className="absolute right-0 top-12 bg-white rounded-xl shadow-xl border border-slate-200 p-3 z-50 w-52">
+                <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Theme Color</div>
+                <div className="grid grid-cols-4 gap-2 mb-3">
+                  {THEME_PRESETS.map((item, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => { setThemeColor(item.color); setShowColorPicker(false); }}
+                      className="group flex flex-col items-center gap-1 cursor-pointer"
+                      title={item.name}
+                    >
+                      <div
+                        className={`w-8 h-8 rounded-full border-2 transition-transform group-hover:scale-110 ${
+                          themeColor === item.color ? 'border-slate-800 scale-110' : 'border-slate-200'
+                        }`}
+                        style={{ backgroundColor: item.color }}
+                      />
+                      <span className="text-[9px] text-slate-500">{item.name}</span>
+                    </button>
+                  ))}
+                </div>
+                <div className="flex items-center gap-2 pt-2 border-t border-slate-100">
+                  <label className="text-xs text-slate-500">Custom:</label>
+                  <input
+                    type="color"
+                    value={themeColor}
+                    onChange={(e) => setThemeColor(e.target.value)}
+                    className="w-8 h-8 rounded cursor-pointer border-0 p-0"
+                  />
+                  <span className="text-xs font-mono text-slate-400">{themeColor}</span>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Profile Image Toggle */}
@@ -109,6 +152,11 @@ const App = () => {
         </div>
       </div>
 
+      {/* Close color picker when clicking outside */}
+      {showColorPicker && (
+        <div className="fixed inset-0 z-40 print:hidden" onClick={() => setShowColorPicker(false)} />
+      )}
+
       {/* Main Content Area */}
       <div className="pt-24 pb-12 px-4 print:p-0 print:m-0">
         <div className="print:w-full">
@@ -116,6 +164,7 @@ const App = () => {
             <ModernTemplate 
               data={activeProfile} 
               showProfileImage={showProfileImage}
+              themeColor={themeColor}
             />
           )}
         </div>
