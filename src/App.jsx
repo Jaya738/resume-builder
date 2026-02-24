@@ -1,11 +1,28 @@
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Download, User, UserX } from 'lucide-react';
 import ModernTemplate from './components/ModernTemplate';
-import resumeData from './data/resumeData.json';
+import jayaData from './data/jaya.json';
+import navyaData from './data/navya.json';
+import venkatData from './data/venkat.json';
+
+// Import all profiles in /data folder
 
 const App = () => {
   const [template, setTemplate] = useState('modern');
-  const [showProfileImage, setShowProfileImage] = useState(true);
+  // Maintain list of profiles in state
+  const [profiles, setProfiles] = useState([jayaData, navyaData, venkatData]);
+  // Maintain active profile in state
+  const [activeProfile, setActiveProfile] = useState(navyaData);
+  const hasProfileImage = useMemo(
+    () => Boolean(activeProfile?.header?.profileImage?.trim()),
+    [activeProfile]
+  );
+  const [showProfileImage, setShowProfileImage] = useState(hasProfileImage);
+
+  useEffect(() => {
+    // Auto-hide image when selected profile has no image configured in JSON.
+    setShowProfileImage(hasProfileImage);
+  }, [hasProfileImage]);
 
   // Handle Printing / PDF Download
   const handlePrint = () => {
@@ -15,6 +32,12 @@ const App = () => {
   // Toggle profile image visibility
   const toggleProfileImage = () => {
     setShowProfileImage(!showProfileImage);
+  };
+
+  const cycleProfile = () => {
+    const currentIndex = profiles.findIndex((profile) => profile.header.name === activeProfile.header.name);
+    const nextIndex = (currentIndex + 1) % profiles.length;
+    setActiveProfile(profiles[nextIndex]);
   };
 
   return (
@@ -30,6 +53,15 @@ const App = () => {
         </div>
 
         <div className="flex items-center gap-3">
+          {/* Profile Selector */}
+          <button
+            onClick={cycleProfile}
+            className="hidden md:flex items-center gap-2 text-sm text-slate-500 bg-slate-50 px-3 py-1.5 rounded-full border border-slate-200 hover:bg-slate-100"
+            title="Switch profile"
+          >
+            <span>Profile:</span>
+            <span className="font-medium text-slate-800">{activeProfile.header.name}</span>
+          </button>
           {/* Template Selector */}
           <div className="hidden md:flex items-center gap-2 text-sm text-slate-500 bg-slate-50 px-3 py-1.5 rounded-full border border-slate-200">
             <span>Template:</span>
@@ -46,12 +78,19 @@ const App = () => {
           {/* Profile Image Toggle */}
           <button
             onClick={toggleProfileImage}
+            disabled={!hasProfileImage}
             className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer border ${
-              showProfileImage 
+              !hasProfileImage
+                ? 'bg-slate-50 text-slate-300 border-slate-100 cursor-not-allowed'
+                : showProfileImage
                 ? 'bg-slate-100 text-slate-700 border-slate-200 hover:bg-slate-200' 
                 : 'bg-slate-50 text-slate-400 border-slate-100 hover:bg-slate-100'
             }`}
-            title={showProfileImage ? 'Hide profile image' : 'Show profile image'}
+            title={
+              hasProfileImage
+                ? (showProfileImage ? 'Hide profile image' : 'Show profile image')
+                : 'No profile image configured'
+            }
           >
             {showProfileImage ? <User size={16} /> : <UserX size={16} />}
             <span className="hidden sm:inline">
@@ -75,7 +114,7 @@ const App = () => {
         <div className="print:w-full">
           {template === 'modern' && (
             <ModernTemplate 
-              data={resumeData} 
+              data={activeProfile} 
               showProfileImage={showProfileImage}
             />
           )}

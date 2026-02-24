@@ -20,13 +20,20 @@ import {
   Sparkles
 } from 'lucide-react';
 import SectionTitle from './SectionTitle';
-import profilePic from '../assets/profile_pic_zoomed.jpg';
+
+const assetModules = import.meta.glob('../assets/*.{png,jpg,jpeg,webp,avif,svg}', {
+  eager: true,
+  import: 'default',
+});
+
+const profileImageByName = Object.fromEntries(
+  Object.entries(assetModules).map(([path, url]) => [path.split('/').pop(), url])
+);
 
 const ModernTemplate = ({ data, showProfileImage = true }) => {
   const { header, experience, education, skills, projects } = data;
-  
-  // Use local profile pic if available, otherwise fallback to JSON URL
-  const profileImageSrc = profilePic || header.profileImage;
+  const profileImageName = header?.profileImage?.trim() || '';
+  const profileImageSrc = profileImageByName[profileImageName] || '';
 
   return (
     <div className="resume-container w-full max-w-[210mm] mx-auto bg-white shadow-xl print:shadow-none print:max-w-none text-slate-800">
