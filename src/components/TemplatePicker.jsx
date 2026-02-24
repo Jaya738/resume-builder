@@ -138,9 +138,7 @@ const TemplatePicker = ({ templates, selectedId, onSelect, onContinue }) => {
       {/* Header */}
       <div className="text-center pt-16 pb-8 px-4">
         <div className="inline-flex items-center gap-2 mb-4">
-          <div className="w-10 h-10 bg-slate-800 rounded-xl flex items-center justify-center text-white font-bold text-lg">
-            R
-          </div>
+          <img src="/icons/icon-96x96.png" alt="Blink" className="w-10 h-10 rounded-xl" />
         </div>
         <h1 className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">
           Choose a Template

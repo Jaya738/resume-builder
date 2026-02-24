@@ -89,10 +89,8 @@ const App = () => {
           </button>
           <div className="w-px h-6 bg-slate-200 hidden sm:block" />
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-slate-800 rounded-lg flex items-center justify-center text-white font-bold">
-              R
-            </div>
-            <span className="font-semibold text-slate-700 hidden sm:inline">ResumeBuilder</span>
+            <img src="/icons/icon-48x48.png" alt="Blink" className="w-8 h-8 rounded-lg" />
+            <span className="font-semibold text-slate-700 hidden sm:inline">Blink</span>
           </div>
         </div>
 
