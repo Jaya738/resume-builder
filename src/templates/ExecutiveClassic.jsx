@@ -24,7 +24,7 @@ const ExecutiveClassic = ({ data, showProfileImage = true, themeColor = '#f59e0b
 
   return (
     <div
-      className="resume-container w-full max-w-[210mm] mx-auto bg-white shadow-xl print:shadow-none print:max-w-none text-slate-800"
+      className="resume-container template-executive-classic w-full max-w-[210mm] mx-auto bg-white shadow-xl print:shadow-none print:max-w-none text-slate-800"
       style={{ '--theme-color': themeColor }}
     >
       {/* HEADER */}

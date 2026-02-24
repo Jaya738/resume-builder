@@ -30,7 +30,7 @@ const templateRegistry = [
     name: 'Bold Creative',
     description: 'Full-color header banner with right sidebar. Stands out for creative roles.',
     component: BoldCreative,
-    defaultColor: '#8b5cf6',
+    defaultColor: '#454545',
     preview: {
       layout: 'two-column',
       accent: 'color-header',

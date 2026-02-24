@@ -23,7 +23,7 @@ const MinimalistClean = ({ data, showProfileImage = true, themeColor = '#3b82f6'
 
   return (
     <div
-      className="resume-container w-full max-w-[210mm] mx-auto bg-white shadow-xl print:shadow-none print:max-w-none text-slate-800"
+      className="resume-container template-minimalist-clean w-full max-w-[210mm] mx-auto bg-white shadow-xl print:shadow-none print:max-w-none text-slate-800"
       style={{ '--theme-color': themeColor }}
     >
       {/* HEADER - Centered, minimal */}

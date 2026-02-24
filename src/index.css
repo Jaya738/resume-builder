@@ -20,6 +20,11 @@
     font-weight: 700;
     color: #1e293b;
   }
+
+  /* Let bold text inherit color inside colored headers */
+  .resume-container header b {
+    color: inherit;
+  }
 }
 
 /* Resume styles - Applied to both screen and print */
@@ -61,7 +66,7 @@
   font-size: 9pt;
 }
 
-.resume-container header img {
+.template-executive-classic header img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -102,22 +107,40 @@
     display: flex !important;
     flex-direction: row !important;
     gap: 2rem !important;
+  }
+
+  /* Executive Classic: left sidebar 24%, right content 76% */
+  .template-executive-classic .resume-main {
     padding: 1rem 1.5rem !important;
   }
-  
-  .resume-sidebar {
+
+  .template-executive-classic .resume-sidebar {
     width: 24% !important;
     min-width: 24% !important;
     flex-shrink: 0 !important;
     order: 1 !important;
   }
-  
-  .resume-content {
+
+  .template-executive-classic .resume-content {
     width: 76% !important;
     flex-grow: 1 !important;
     order: 2 !important;
   }
-  
+
+  /* Bold Creative: left content 68%, right sidebar 32% */
+  .template-bold-creative .resume-content {
+    width: 68% !important;
+    flex-grow: 1 !important;
+    order: 1 !important;
+  }
+
+  .template-bold-creative .resume-sidebar {
+    width: 32% !important;
+    min-width: 32% !important;
+    flex-shrink: 0 !important;
+    order: 2 !important;
+  }
+
   /* Header adjustments */
   header {
     padding: 1rem 1.5rem !important;

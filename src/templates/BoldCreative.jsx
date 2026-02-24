@@ -23,13 +23,13 @@ const profileImageByName = Object.fromEntries(
   Object.entries(assetModules).map(([path, url]) => [path.split('/').pop(), url])
 );
 
-const BoldCreative = ({ data, showProfileImage = true, themeColor = '#8b5cf6' }) => {
+const BoldCreative = ({ data, showProfileImage = true, themeColor = '#454545' }) => {
   const { header, experience, education, skills, projects } = data;
   const profileImageSrc = profileImageByName[header?.profileImage?.trim()] || '';
 
   return (
     <div
-      className="resume-container w-full max-w-[210mm] mx-auto bg-white shadow-xl print:shadow-none print:max-w-none text-slate-800"
+      className="resume-container template-bold-creative w-full max-w-[210mm] mx-auto bg-white shadow-xl print:shadow-none print:max-w-none text-slate-800"
       style={{ '--theme-color': themeColor }}
     >
       {/* HEADER - Bold colored banner */}
